@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: app }
+spec:
+  replicas: {{ .Values.replicas }}
+  selector: { matchLabels: { app: app } }
+  template:
+    metadata: { labels: { app: app } }
+    spec:
+      securityContext: { runAsNonRoot: true }
+      containers:
+      - name: app
+        image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
+        ports: [{ containerPort: 8000 }]
+        readinessProbe: { httpGet: { path: /health, port: 8000 }, periodSeconds: 3 }
+        resources: { requests: { cpu: 50m, memory: 64Mi }, limits: { memory: 128Mi } }

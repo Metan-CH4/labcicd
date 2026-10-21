@@ -1,0 +1,2 @@
+image: { repository: "", digest: "" }
+replicas: 2
