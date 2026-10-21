@@ -12,5 +12,5 @@ spec:
       - name: app
         image: "{{ required "image.repository is required" .Values.image.repository }}@{{ required "image.digest is required" .Values.image.digest }}"
         ports: [{ containerPort: 8000 }]
-        readinessProbe: { httpGet: { path: /healthz, port: 8000 }, periodSeconds: 3 }
+        readinessProbe: { httpGet: { path: /health, port: 8000 }, periodSeconds: 3 }
         resources: { requests: { cpu: 50m, memory: 64Mi }, limits: { memory: 128Mi } }
