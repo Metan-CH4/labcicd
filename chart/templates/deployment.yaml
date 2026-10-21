@@ -10,7 +10,6 @@ spec:
       securityContext: { runAsNonRoot: true }
       containers:
       - name: app
-        # image: "{{ .Values.image.repository }}@{{ .Values.image.digest }}"
         image: "{{ required "image.repository is required" .Values.image.repository }}@{{ required "image.digest is required" .Values.image.digest }}"
         ports: [{ containerPort: 8000 }]
         readinessProbe: { httpGet: { path: /health, port: 8000 }, periodSeconds: 3 }
